@@ -84,7 +84,7 @@ else
 fi
 
 # parse wikimedia with wikiextractor
-WIKI_BY_WIKIEXTRACTOR="data/wikimedia/20180119/raw_wiki"       #"${ROOT}/raw_wiki"
+WIKI_BY_WIKIEXTRACTOR="${ROOT}/raw_wiki"
 # json type of the parsed file
 JSON="${WIKI_BY_WIKIEXTRACTOR}/json"
 # plaintext type of the parsed file
@@ -110,7 +110,7 @@ else
     echo "saving the parsed wiki in ${WIKI_BY_WIKIEXTRACTOR}"
 fi
 
-if [ "$choice" == "j" ]; then 
+if [ "$choice" = "j" ]; then 
     if [ -d "$JSON" ]; then 
         python3 ${PARSING}"/"WikiExtractor.py -o $JSON --json ${ROOT}"/"kowiki-latest-pages-articles.xml.bz2
     else 
