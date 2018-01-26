@@ -14,7 +14,7 @@ FALSE="false"
 NOW=$(date +"%Y%m%d")
 
 # Root Directory to save data such as wiki dump file, open source(Wikiextractor), the parsed wiki dump file
-ROOT="wikimedia/${NOW}"
+ROOT="wikimedia"
 # To check if the directory aleary exist
 # -d is to check if $ROOT is a directory
 if [ -d $ROOT ]; then
