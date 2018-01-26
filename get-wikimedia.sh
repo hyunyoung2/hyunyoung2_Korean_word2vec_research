@@ -10,36 +10,11 @@ URL="https://dumps.wikimedia.org/kowiki/latest/kowiki-latest-pages-articles.xml.
 TRUE="true"
 FALSE="false"
 
-
-# To Check if the directory is there
-check_dir () {
-   # -d is to check if $1 is a directory 
-   if [ -d $1 ]; then
-       # -L is to check if $1 is symbolic link
-       if [ -L $1 ]; then
-           echo "${1}(symbolic link) already exists!!"
-           echo "You don't need to make a directory for ${1}"
-           echo ""
-           return $FALSE
-       else
-           echo "$1 is not symbolic link"
-           echo "But, $1 already exstis!"
-           echo ""
-           return $FALSE
-       fi
-   else
-      mkdir -p $1
-      echo "saving data in $1"
-      return $TRUE
-   fi
-}
-
-
 # +"%Y%m%d" is for format control of date command
 NOW=$(date +"%Y%m%d")
 
 # Root Directory to save data such as wiki dump file, open source(Wikiextractor), the parsed wiki dump file
-ROOT="data/wikimedia/${NOW}"
+ROOT="wikimedia/${NOW}"
 # To check if the directory aleary exist
 # -d is to check if $ROOT is a directory
 if [ -d $ROOT ]; then
