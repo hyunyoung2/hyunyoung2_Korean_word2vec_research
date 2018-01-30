@@ -64,7 +64,7 @@ sed -e "s/‘/'/g" -e "s/’/'/g" -e "s/′/'/g" -e "s/“/\"/g" -e "s/”/\"/g"
     -e 's/…/ /g' \
     -e 's/·/ /g' -e 's/•/ /g' -e 's/-/ /g' \
     -e 's/\!/ \! /g' -e 's/\?/ \? /g' -e 's/\;/ /g' -e 's/\:/ /g' -e 's/*/ /g' -e 's/|/ /g' \
-    -e 's/«/ /g' -e 's/»/ /g' \
+    -e 's/«/ /g' -e 's/»/ /g' -e 's/</ /g' -e 's/>/ /g' \
     -e 's/≪//g' -e 's/≫//g' -e 's/『//g' -e 's/』//g' -e 's/〈//g' -e 's/〉//g' -e 's/\《//g' -e 's/\》//g' $INPUT > $OUTPUT
 
 echo "normalizing is done!!" 
