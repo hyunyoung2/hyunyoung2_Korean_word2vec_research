@@ -15,7 +15,7 @@ def print_file(input_file, output_dir):
         if val.find("<doc id=") != -1:
             if num_idx < 10:
                 # location_file = the location of file + file name
-                write_file = os.path.join(output_dir, WIKI_NAME+"0"+str(num_idx)+"0")
+                write_file = os.path.join(output_dir, WIKI_NAME+"0"+"0"+str(num_idx))
             elif num_idx < 100:
                 write_file = os.path.join(output_dir, WIKI_NAME+"0"+str(num_idx))
             else: 
@@ -23,15 +23,31 @@ def print_file(input_file, output_dir):
             with open(write_file, "w") as wf:
                 temp_idx = idx
                 while temp_sentences[temp_idx].find("</doc>") == -1:
-                    wf.write(temp_sentences[temp_idx])
+                    if temp_sentences[temp_idx].find(",\n") != -1:
+                        wf.write(temp_sentences[temp_idx][:temp_sentences[temp_idx].find("\n")]+" \n")
+                    elif temp_sentences[temp_idx].find(".\n") != -1:
+                        wf.write(temp_sentences[temp_idx][:temp_sentences[temp_idx].find("\n")]+" \n")
+                    ## I have to separate below
+                    ## sdfsdjsl</math>
+                    #elif temp_sentences[temp_idx].find("</math>") != -1:
+                        #continue
+                    ## 우변의 둘째, 셋째 그리고 넷째 항을 왼쪽으로 옮기면 뉴튼의 운동 방정식과 비슷한 꼴의 운동방정식이 된다.
+                    ## formula_31
+                    #elif len(temp_sentences[temp_idx].split()) == -1:
+                        #continue
+                    else:
+                        wf.write(temp_sentences[temp_idx])
                     temp_idx += 1
                 wf.write(temp_sentences[temp_idx])
             num_idx += 1
         else:
             continue
 
+
 # Under current dir and divied dir
-ROOT = ["original",  "normalized"]
+# removal of normalized, 
+# ["original", "normalized"] -> ["original"]
+ROOT = ["original"]
 # Under original and normalized dir of current
 DIR = ["AA", "AB", "AC", "AD", "AE", "AF"]
 # The destination of dividing
