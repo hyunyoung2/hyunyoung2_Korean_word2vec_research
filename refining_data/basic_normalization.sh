@@ -57,14 +57,18 @@ OUTPUT=${NORMALIZATION_ROOT}"/"${FILENAME}
 
 # normalizing data
 sed -e "s/‘/'/g" -e "s/’/'/g" -e "s/′/'/g" -e "s/“/\"/g" -e "s/”/\"/g" -e "s/\`/'/g" -e "s/´/'/g" \
+    -e 's/."/. "/g' -e "s/.'/. '/g" \
+    -e 's/.../. /g' -e 's/~/ ~ /g' -e 's/. / . /g' \
     -e 's/([^)]*)//g' -e 's/()//g' -e 's/( )//g' \
     -e 's/"//g' -e "s/'//g" -e 's/, / /g' \
-    -e 's/…/ /g' -e 's/·/ - /g' -e 's/•/ - /g' \
-    -e 's/\!/ \! /g' -e 's/\?/ \? /g' -e 's/\;/ /g' -e 's/\:/ /g' -e 's/-/ - /g'  -e 's/*/ /g' -e 's/|/ /g' \
+    -e 's/…/ /g' \
+    -e 's/·/ /g' -e 's/•/ /g' -e 's/-/ /g' \
+    -e 's/\!/ \! /g' -e 's/\?/ \? /g' -e 's/\;/ /g' -e 's/\:/ /g' -e 's/*/ /g' -e 's/|/ /g' \
     -e 's/«/ /g' -e 's/»/ /g' \
     -e 's/≪//g' -e 's/≫//g' -e 's/『//g' -e 's/』//g' -e 's/〈//g' -e 's/〉//g' -e 's/\《//g' -e 's/\》//g' $INPUT > $OUTPUT
 
 echo "normalizing is done!!" 
 
+# -e 's/·/ - /g' -e 's/•/ - /g' -e 's/-/ - /g' \
 # -e 's/=/ /g'
 # -e 's/「//g' -e 's/」//g' -e 's/＜//g' -e 's/＞//g' 
