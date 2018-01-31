@@ -6,28 +6,33 @@
 
 
 WIKIMEDIA="../wikimedia/raw_wiki/plaintxt"
+DESTINATION="./original"
 
 if [ -d $WIKIMEDIA ]; then
      # -L is to check if $ROOT is symbolic link
     if [ -L $WIKIMEDIA ]; then
        echo "${WIKIMEDIA}(symbolic link) already exists!!"
-       cp -r ../wikimedia/raw_wik/plaintxt/* ./original 
+       cp -avr ${WIKIMEDIA}"/" $DESTINATION
        echo "cp all is done!!"
        echo
     else
        echo "$WIKIMEDIA is not symbolic link"
        echo "BUT, $WIKIMEDIA already exist!"
-       cp -r ../wikimedia/raw_wik/plaintxt/* ./original 
+       cp -avr ${WIKIMEDIA}"/" $DESTINATION 
        echo "cp all is done!!"
        echo 
     fi
 else
-    echo "you don't have wikimedia directory"
-    echo "execute ../get-wikimedia.sh"  
+    echo "you do not have wikimedia directory"
+    echo "execute ../get-wikimedia.sh"
     echo "parse wikimedia into palintext with wikimedia"
     exit
 fi
 
-./iteration_basic_normalization.sh
+python3 divided.py
 
-python3 divided.py 
+python3 long_contents.py
+
+# if you want to normalize wikipedia article after divided it
+# ./iteration_basic_normalization.sh
+

@@ -5,15 +5,17 @@
 # This shell script is for nomarlizing wikimedia's korean language.
 
 # Input file name
-FILENAME="wiki_"$1 #"wiki_00"
+FILENAME=$1 # like wiki_000 ~ wiki_999
 
 # The directory of input file name
-DIR=$2 #"AA"
+DIR=$2 # like AA/wiki_00
 
 # The location of directory
 
-# The replica of data/wikimedia/20180124/raw_wiki/plaintxt/AA ... AF
-REPLICA_ROOT="original/${DIR}"
+# The replica of wikimedia/raw_wiki/plaintxt/AA ... AF
+REPLICA_ROOT="divided/long_contents/${DIR}"
+
+echo $REPLICA_ROOT
 if [ -d $REPLICA_ROOT ]; then 
 	if [ -L $REPLICA_ROOT ]; then
 		echo "${REPLICA_ROOT}(symbolic link) already exists!!!"
@@ -32,7 +34,9 @@ fi
 
 
 # The Root of data normalized
-NORMALIZATION_ROOT="normalized/${DIR}"
+NORMALIZATION_ROOT="normalized/long_contents/${DIR}"
+
+echo $NORMALIZATION_ROOT
 if [ -d $NORMALIZATION_ROOT ]; then 
 	if [ -L $NORMALIZATION_ROOT ]; then
 		echo "${NORMALIZATION_ROOT}(symbolic link) already exists!!!"
@@ -52,23 +56,31 @@ fi
 # Final input 
 INPUT=${REPLICA_ROOT}"/"${FILENAME}
 
+
+
 # final output
 OUTPUT=${NORMALIZATION_ROOT}"/"${FILENAME}
 
+
 # normalizing data
-sed -e "s/‘/'/g" -e "s/’/'/g" -e "s/′/'/g" -e "s/“/\"/g" -e "s/”/\"/g" -e "s/\`/'/g" -e "s/´/'/g" \
-    -e 's/."/. "/g' -e "s/.'/. '/g" \
-    -e 's/.../. /g' -e 's/~/ ~ /g' -e 's/. / . /g' \
-    -e 's/([^)]*)//g' -e 's/()//g' -e 's/( )//g' \
+sed -e 's/<nowiki>//g' -e 's/<\/nowiki>//g' -e 's/<math>//g' -e 's/<\/math>//g' \
+    -e "s/‘/'/g" -e "s/’/'/g" -e "s/′/'/g" -e "s/“/\"/g" -e "s/”/\"/g" -e "s/\`/'/g" -e "s/´/'/g" \
+    -e 's/\.\"/\. \"/g' -e "s/\.\'/\. \'/g" \
+    -e 's/\.\.\./\. /g' -e 's/~/ ~ /g' -e 's/∼/ ∼ /g' -e 's/\. / \. /g' \
+    -e 's/([^)]*)//g' -e 's/()//g' -e 's/( )//g' -e 's/(//g' -e 's/)//g' \
     -e 's/"//g' -e "s/'//g" -e 's/, / /g' \
     -e 's/…/ /g' \
-    -e 's/·/ /g' -e 's/•/ /g' -e 's/-/ /g' \
+    -e 's/·/ /g' -e 's/•/ /g' -e 's/-/ /g' -e 's/→/ → /g' \
     -e 's/\!/ \! /g' -e 's/\?/ \? /g' -e 's/\;/ /g' -e 's/\:/ /g' -e 's/*/ /g' -e 's/|/ /g' \
-    -e 's/«/ /g' -e 's/»/ /g' -e 's/</ /g' -e 's/>/ /g' \
-    -e 's/≪//g' -e 's/≫//g' -e 's/『//g' -e 's/』//g' -e 's/〈//g' -e 's/〉//g' -e 's/\《//g' -e 's/\》//g' $INPUT > $OUTPUT
+    -e 's/«/ /g' -e 's/»/ /g' \
+    -e 's/「//g' -e 's/」//g' -e 's/ \[//g' -e 's/\[.*\]//g' -e 's/\]//g' \
+    -e 's/≪//g' -e 's/≫//g' -e 's/『//g' -e 's/』//g' -e 's/〈//g' -e 's/〉//g' -e 's/《//g' -e 's/》//g' $INPUT > $OUTPUT
+
 
 echo "normalizing is done!!" 
 
+# sed -e 's/<nowiki>//g' -e 's/<\/nowiki>//g' \
+# -e 's/ <//g' -e 's/>//g' -e 's/≥//g' -e 's/≤//g'
 # -e 's/·/ - /g' -e 's/•/ - /g' -e 's/-/ - /g' \
 # -e 's/=/ /g'
 # -e 's/「//g' -e 's/」//g' -e 's/＜//g' -e 's/＞//g' 
