@@ -14,7 +14,7 @@ ROOT_DIR=${EX_DIR}"/"$DATASET
 
 INPUT_FILENAME="contents"
 
-OUTPUT_FILENAME="contenst_normalized"
+OUTPUT_FILENAME="contents_normalized"
 
 INPUT=${ROOT_DIR}"/"$INPUT_FILENAME
 
