@@ -63,7 +63,7 @@ OUTPUT=${NORMALIZATION_ROOT}"/"${FILENAME}
 
 
 # normalizing data
-sed -e 's/<nowiki>//g' -e 's/<\/nowiki>//g' -e 's/<math>//g' -e 's/<\/math>//g' \
+sed -e 's/<nowiki>//g' -e 's/<\/nowiki>//g' -e 's/<math>//g' -e 's/<\/math>//g'  -e 's/<br>//g' -e 's/<\/br>//g' \
     -e "s/‘/'/g" -e "s/’/'/g" -e "s/′/'/g" -e "s/“/\"/g" -e "s/”/\"/g" -e "s/\`/'/g" -e "s/´/'/g" \
     -e 's/\.\"/\. \"/g' -e "s/\.\'/\. \'/g" \
     -e 's/\.\.\./\. /g' -e 's/~/ ~ /g' -e 's/∼/ ∼ /g' -e 's/\. / \. /g' \
@@ -76,7 +76,8 @@ sed -e 's/<nowiki>//g' -e 's/<\/nowiki>//g' -e 's/<math>//g' -e 's/<\/math>//g' 
     -e 's/「//g' -e 's/」//g' -e 's/ \[//g' -e 's/\[.*\]//g' -e 's/\]//g' \
     -e 's/≪//g' -e 's/≫//g' -e 's/『//g' -e 's/』//g' -e 's/〈//g' -e 's/〉//g' -e 's/《//g' -e 's/》//g' $INPUT > $OUTPUT
 
-
+echo "input: $INPUT"
+echo "output: $OUTPUT"
 echo "normalizing is done!!" 
 
 # sed -e 's/<nowiki>//g' -e 's/<\/nowiki>//g' \

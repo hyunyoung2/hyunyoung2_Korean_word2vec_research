@@ -9,18 +9,12 @@ WIKIMEDIA="../wikimedia/raw_wiki/plaintxt"
 DESTINATION="./original"
 
 if [ -d $WIKIMEDIA ]; then
-     # -L is to check if $ROOT is symbolic link
-    if [ -L $WIKIMEDIA ]; then
-       echo "${WIKIMEDIA}(symbolic link) already exists!!"
-       cp -avr ${WIKIMEDIA}"/" $DESTINATION
-       echo "cp all is done!!"
-       echo
+    if [ -d $DESTINATION ]; then 
+	echo "There is already $DESTINATION" 
+	#exit
     else
-       echo "$WIKIMEDIA is not symbolic link"
-       echo "BUT, $WIKIMEDIA already exist!"
-       cp -avr ${WIKIMEDIA}"/" $DESTINATION 
-       echo "cp all is done!!"
-       echo 
+        cp -avr ${WIKIMEDIA} $DESTINATION
+	echo "cp all is done!!"
     fi
 else
     echo "you do not have wikimedia directory"
@@ -29,10 +23,43 @@ else
     exit
 fi
 
-python3 divided.py
+DIVIDED="./divided/original"
 
-python3 long_contents.py
+if [ -d $DIVIDED ]; then
+    echo "There is already $DIVIDED"
+    #exit
+else
+    python3 divided_originally.py
+fi
+
+LONG_CONTENTS="./divided/long_contents"
+
+if [ -d $LONG_CONTENTS ]; then
+    echo "There is already $LONG_CONTENTS"
+    #exit
+else
+    python3 long_contents.py
+fi
 
 # if you want to normalize wikipedia article after divided it
-# ./iteration_basic_normalization.sh
 
+NORMALIZED="./normalized/long_contents"
+
+if [ -d $NORMALIZED ]; then 
+    echo "There is already $NORMALIZED" 
+    #exit
+else 
+    ./iteration_basic_normalization.sh
+fi
+
+DATASET="../dataset"
+
+if [ -d $DATASET ]; then 
+	echo "you have already the $DATASET"
+	#exit
+else 
+	mkdir $DATASET
+	echo "you created ${DATASET}!!"
+	python3 make_dataset.py
+	./normalize_text.sh
+fi 
