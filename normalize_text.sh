@@ -6,6 +6,10 @@
 # This version is basic version from Fasttext's get-wikimedia.sh
 # This normalization mean removing a phrase beginning with "(" and endig with ")".
 
+# If you want to know how to use sed command, visit https://www.tutorialspoint.com/unix/unix-regular-expressions.htm
+# -e 's/\.\([^0-9]\)/ \1/g', That is regular expression inside the parenthesis would be back referenced by \1, \2 and so on
+# remember the lien right above.
+
 DATE=$(date +%Y%m%d)
 
 # The location of directory
